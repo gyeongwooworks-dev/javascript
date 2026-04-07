@@ -1,22 +1,28 @@
 // 함수(Function)
 // ->프로그래밍 언어에서 함수란 코드 뭉치를 재사용하기 위해 만들어 놓은 구조
+////: 입력 값을 받아서 데이터를 처리하고, 결과를 반환하는 코드 뭉치
+// → 코드를 재사용하기 위해 만들어 놓은 구조
 
 // 함수 정의 -> "~ 기능을 하는 코드 덩어리"를 X라는 이름으로 부르겠다
 // 입력 -> 함수 동작 -> 출력
 
-// 함수의 사용되는 매개변수
+// 함수의 사용되는 매개변수 선언 -> n1, n2
 function add(n1, n2) {
     // 함수 동작 구현부
     let result = n1 + n2; //함수 안에서 설정된 변수는 이 안에서만 사용 가능
-    
-    // 함수를 호출한 곳으로 함수의 결과를 되돌려 준다 + 함수 종료
-    return result; 
+
+    // console.log(result); -> 3 출력
+    // return -> 함수를 호출한 곳으로 함수의 결과를 되돌려 준다 + 함수 종료
+    // return result; 
+    // return 이 없다면 undefined로 치환함
 }
 //-> add라는 이름의 함수를 정의, 약속
 
-
+// add(1,2);
 // 함수 호출(call) -> 함수를 사용한다
- let result= add(1,2); // 함수 안 result랑은 다름
-console.log(result);
+console.log(add(1,2));
+
+//  let result= add(1,2); // 함수 안 result랑은 다름ß
+// console.log(result);
 
 //또는 console.log(add(1,2));

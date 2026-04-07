@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p id="box">마우스를 올려보세요.</p>
+
+    <script>
+        // mouseover -> 글씨를 orange 색으로 변경
+        // mouserout -> 글씨를 black으로 변경
+
+        const box = document.querySelector("#box");
+
+        function changeColor(color) {
+            box.style.color = color;
+        };
+
+        // 이벤트 리스러를 등록할 때, 함수 정의를 동시에 할 수 있다. -> 함수 이름 필요 없음
+        box.addEventListener("mouseover", () => changeColor("orange"));
+        box.addEventListener("mouseover", () => changeColor("blacke"));
+  
+        // '() => {}' -> 형태를 보면, 함수하고 해석한다.
+        // addEventLisner(이벤트, 함수)
+        // addEventLisner 호출 할 때, 두번째 인자는 반드시 함수를 전달한다.
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 브라우저에 일시적으로 정보 저장 -->
+    <!-- <h1>localStorage </h1> -->
+    
+    <!-- [정리]
+
+    1. Storage API는 값(value)으로 문자열만 허용
+    2. 다른 타입의 값을 저장 JSON.stringify() ↔ 읽기 : JSON.parse()
+
+    직접 삭제 해주기 전까지는 데이터가 남아있음
+    호스트별로는 storeage에서 저장해둔 값들은 알아서 격리해서 구별해둠.
+
+    sesseion storage : 브라우저가 작동하는 시간동안? 활성화되어 있을때만 정보 저장됨
+    -->
+
+    <input type="text" id="name" placeholder="이름 입력..." autocomplete="off">
+    <button id="save">저장</button>
+    <button id="reset">리셋</button>
+    <p id="result"></p>
+
+    <script>
+        
+        // 한 번 이름을 저장하면, 브라우저를 닫았다가 열어도 이르이 유지되게 하기
+        const input = document.querySelector("#name");
+        const saveBtn = document.querySelector("#save");
+        const resetBtn = document.querySelector("#reset");
+        const result = document.querySelector("#result");
+
+        // DOM 그릴 때, 로컬 스토리지를 읽어서 저장된 이름이 있으면 출력
+        const savedUser = localStorage.getItem("name");
+        if (savedUser) {
+            result.textContent = savedUser;
+            input.value = savedUser; //입력창에도 표시 (UX좋게)
+        };
+
+        // input 값 -> p 텍스트로 반영 저장버튼 클릭
+        saveBtn.addEventListener("click", () => {
+            // 캐싱(caching) = 임시 저장소에 데이터를 저장하는 기술
+            localStorage.setItem("name", input.value);
+            result.textContent = input.value;
+        });
+
+        // 리셋버튼을 누르면, 이름 리셋
+        resetBtn.addEventListener("click", () => {
+            // 입력창 비우기
+            input.value = "";
+            // 결과 텍스트 비우기
+            result.textContent= "";
+            // localStorage 삭제
+            localStorage.removeItem("name");
+            
+            if (confirm("정말 삭제할까요?")) {
+                localStorage.removeItem("name");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

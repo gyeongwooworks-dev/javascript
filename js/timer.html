@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Timer API</h1>
+
+    <button id="start">카운트다운 시작</button>
+    <p id="time"></p>
+    
+    <script>
+    //     // setTimeout (함수, 시간(ms)) : 일정 시간이 지난 뒤에 함수를 한 번 실행
+    //     function alertTimeout() {
+    //         alert("타임아웃이 종료되었습니다.");
+    //     };
+
+    //     //3s = 3000ms
+    //     setTimeout(alertTimeout, 3000);
+
+
+    //     // 1) 함수 표현식
+    //     setTimeout(function () {
+    //         alert("타임아웃이 종료되었습니다.");
+    //     }, 3000);
+
+    //     // 2) 화살표 함수
+	// 	setTimeout(() => alert ("타임아웃이 종료되었습니다."), 3000);
+
+	// 	// setInterval (함수, 시간(ms)) : 일정 시간마다 함수를 반복 실행하는 API
+	// 	setInterval(() => alert("3초가 경과 되었습니다."), 3000);
+
+        const startBtn = document.querySelector("#start");
+        const timeEl = document.querySelector("#time");
+
+        let timeLeft = 10; 
+        let timerId = null;
+
+        // start 버튼에 이벤트 리스너를 추가한다? 클릭이벤트가 동작하면 뒤에 함수를 실행 시키겠다
+        // 카운드 다운 시작(10초 -> 0초)
+        startBtn.addEventListener("click", () => {
+            // 카운트 다운(N-- : n초 -> 0초)
+
+            // 이미 등록된 타이머가 있으면, 무시
+            if (timerId !== null) return ; 
+
+            startBtn.disabled = true;
+            timeEl.textContent = timeLeft;
+            
+        
+            // 잘못됨 -> 반복문이 너무 빨리 진행됨
+            // for (let t =0; t <= 10; t++) {
+            //     timeLeft -= 1;
+            //     timeEl.textContent = timeLeft;
+            // };
+            
+            //interval api로 1초마다 동작하게 해야한다 뭐를 ? 시간이 1초씩 줄어드는 것
+            // 1초마다 timeleftfmf 1씩 줄이고, 화면에 변경된 값을 출력
+            timerId = setInterval(() => {
+                timeLeft--;
+
+                if (timeLeft === 0) {
+                    // timeLeft를 중지
+                    timeEl.textContent ="타이머 종료!"
+                    clearInterval(timerId);
+                    // 문제점 1) Timer 종료하고 재시작시 timeLeft 초기화 X
+                    //(기대) 10부터 다시 시작
+                    //(실제) 0부터 다시 시작- > 음수로
+                    //2) Timer가 동작되는 중간에 버튼을 누르면 타이머가 중복 등록되는 현상(음수 초에서 튀는 현상)
+                    // 초기화
+                    timeLeft = 10;
+                    timerId = null;
+                    startBtn.disabled = false;
+                } else {
+                    // timeLeft >= 0인 경우, 계속 진행
+                    timeEl.textContent = timeLeft;
+                }
+            }, 1000);
+        }); 
+    </script>
+</body>
+</html>
